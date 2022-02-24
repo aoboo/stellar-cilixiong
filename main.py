@@ -340,23 +340,24 @@ class m66ysplugin(StellarPlayer.IStellarPlayerPlugin):
         # 播放器搜索异步接口
         print(f'onPlayerSearch:{wd}')
         result = []
+        url = 'https://www.cilixiong.com/e/search/index.php'
         if len(self.search_urls) > 0:
             url = self.search_urls[0]
-            movies = search_cilixiong_page_movies(url,wd)
-            for item in movies:
-                magnets = parse_cilixiong_movie(item['url'])
-                if len(magnets) > 0:
-                    urls = []
-                    index = 1
-                    for magnet in magnets:
-                        obj = []
-                        obj.append('磁力' + str(index))
-                        obj.append(magnet['url'])
-                        urls.append(obj)
-                        index = index + 1
-                    result.append({'urls':urls,'name':item['title'],'pic':item['img']})
-                if len(result) >= limit:
-                    break
+        movies = search_cilixiong_page_movies(url,wd)
+        for item in movies:
+            magnets = parse_cilixiong_movie(item['url'])
+            if len(magnets) > 0:
+                urls = []
+                index = 1
+                for magnet in magnets:
+                    obj = []
+                    obj.append('磁力' + str(index))
+                    obj.append(magnet['url'])
+                    urls.append(obj)
+                    index = index + 1
+                result.append({'urls':urls,'name':item['title'],'pic':item['img']})
+            if len(result) >= limit:
+                break
         self.player.dispatchResult(dispatchId, searchId=searchId, wd=wd, result=result)
     
 def newPlugin(player:StellarPlayer.IStellarPlayer,*arg):
