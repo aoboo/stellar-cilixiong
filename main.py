@@ -6,7 +6,7 @@ import StellarPlayer
 import re
 import urllib.parse
 
-cilixiong_home = 'https://www.cilixiong.com/'
+cilixiong_home = 'https://btsow.rest/'
 
 def concatUrl(url1, url2):
     if url2.startswith('http'):
